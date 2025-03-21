@@ -2,11 +2,12 @@ version: 2
 
 sources:
   - name: jaffle_shop
-    database: raw
+    database: dbtworkshop
     tables:
       - name: orders
       - name: customers
   - name: stripe
+    database: dbtworkshop
     tables:
       - name: payments
 models:
