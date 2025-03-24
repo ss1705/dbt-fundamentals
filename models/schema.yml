@@ -14,7 +14,7 @@ sources:
   - name: stripe
     database: dbtworkshop
     tables:
-      - name: payments
+      - name: payment
 models:
   - name: customers
     description: One record per customer
