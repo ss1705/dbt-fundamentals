@@ -1,0 +1,18 @@
+version: 2
+
+
+sources:
+  - name: jaffle_shop
+    database: dbtworkshop
+    freshness: 
+      warn_after: {count: 9999, period: day}  # Large threshold to avoid warnings
+      error_after: {count: 99999, period: day}
+    loaded_at_field: "order_date::TIMESTAMP"
+    tables:
+      - name: orders
+      - name: customers
+        freshness: null
+  - name: stripe
+    database: dbtworkshop
+    tables:
+      - name: payment
