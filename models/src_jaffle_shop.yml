@@ -1,0 +1,41 @@
+version: 2
+
+sources:
+  - name: jaffle_shop
+    description: A clone of a Postgres application database.
+    database: dbtworkshop
+    tables:
+      - name: customers
+        description: Raw customers data.
+        freshness: null
+        columns:
+          - name: id
+            description: Primary key for customers.
+            tests:
+              - unique
+              - not_null
+      - name: orders
+        description: Raw orders data.
+        freshness: 
+          warn_after: {count: 9999, period: day}  # Large threshold to avoid warnings
+          error_after: {count: 99999, period: day}
+          #loaded_at_field: "order_date::TIMESTAMP"
+        columns:
+          - name: id
+            description: Primary key for orders.
+            tests:
+              - unique
+              - not_null
+          - name: status
+            tests:
+              - accepted_values:
+                  values:
+                    - completed
+                    - shipped
+                    - returned
+                    - return_pending
+                    - placed
+  - name: stripe
+    database: dbtworkshop
+    tables:
+      - name: payment
